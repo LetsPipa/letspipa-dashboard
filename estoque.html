@@ -140,7 +140,7 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}
    CONFIGURAÇÃO — cole aqui a URL /exec do App da Web do Apps Script.
    Deixando vazio, o dashboard roda em MODO DEMO com dados de exemplo.
    ===================================================================== */
-var API_URL = 'https://script.google.com/macros/s/AKfycbyJWNjlvEL5Fwg146CT1svof79AieZhPIDggopG8m0yzZCCNmy9OYmItt0vhS2xwqUy/exec';
+var API_URL = '';
 
 var DEMO = !API_URL;
 var CENTRAL = 'Estoque Central';
@@ -184,7 +184,9 @@ function cfgList(k) { var v = (S.db && S.db.config || {})[k]; return v ? String(
 function locais() { return cfgList('LOCAIS'); }
 function noites() { return cfgList('NOITES'); }
 function upc(p) { return Math.max(1, num(p && p.un_por_caixa) || 1); }
-function pname(id) { var p = S.idx[id]; return p ? p.produto : '(produto removido)'; }
+function volLbl(p) { var v = num(p && p.volume_ml); if (!v) return ''; return v >= 1000 && v % 100 === 0 ? nf(v / 1000, v % 1000 ? 1 : 0) + 'L' : nf(v) + 'ml'; }
+function plabel(p) { if (!p) return '(produto removido)'; var v = volLbl(p); return p.produto + (v && normTxt(p.produto).indexOf(normTxt(v)) < 0 ? ' · ' + v : ''); }
+function pname(id) { return plabel(S.idx[id]); }
 function cxun(q, p) {
   var u = upc(p), neg = q < 0, a = Math.abs(q);
   if (u <= 1) return (neg ? '−' : '') + nf(a) + ' un';
@@ -206,7 +208,7 @@ function prodSelect(attrs, sel) {
   var h = '<select class="in" ' + attrs + '><option value="">Selecione o produto…</option>', cat = null;
   prodAtivos().forEach(function (p) {
     if (p.categoria !== cat) { if (cat !== null) h += '</optgroup>'; cat = p.categoria; h += '<optgroup label="' + esc(cat || 'Sem categoria') + '">'; }
-    h += '<option value="' + esc(p.id) + '"' + (p.id === sel ? ' selected' : '') + '>' + esc(p.produto) + '</option>';
+    h += '<option value="' + esc(p.id) + '"' + (p.id === sel ? ' selected' : '') + '>' + esc(plabel(p)) + '</option>';
   });
   if (cat !== null) h += '</optgroup>';
   return h + '</select>';
@@ -621,7 +623,8 @@ function fuzzy(desc) {
     var tk = normTxt(p.produto).split(' ').filter(function (t) { return t.length >= 3 || /\d/.test(t); });
     if (!tk.length) return;
     var hit = tk.filter(function (t) { return d.indexOf(' ' + t + ' ') >= 0 || d.indexOf(t) >= 0; }).length;
-    var sc = hit / tk.length;
+    var sc = hit / tk.length, v = num(p.volume_ml);
+    if (sc > 0 && v && (d.indexOf(' ' + v + 'ml') >= 0 || d.indexOf(' ' + v + ' ml') >= 0 || (v % 1000 === 0 && d.indexOf(' ' + v / 1000 + 'l') >= 0))) sc += 0.3;
     if (sc > bs) { bs = sc; best = p; }
   });
   return bs >= 0.67 ? best : null;
@@ -893,7 +896,7 @@ function vInv() {
   h += '<div class="tw mt"><table class="t"><thead><tr><th>Produto</th><th class="n">Sistema</th><th class="n">Contado cx</th><th class="n">Contado un</th><th class="n">Total contado</th><th class="n">Diferença</th><th class="n">Valor dif.</th></tr></thead><tbody>';
   prodAtivos().forEach(function (p) {
     var x = S.calc[p.id], c = S.inv.cont[p.id] || {};
-    h += '<tr><td><b>' + esc(p.produto) + '</b><small>' + upc(p) + ' un/cx</small></td><td class="n">' + cxun(x.central, p) + '<small>' + nf(x.central) + ' un</small></td>' +
+    h += '<tr><td><b>' + esc(plabel(p)) + '</b><small>' + upc(p) + ' un/cx</small></td><td class="n">' + cxun(x.central, p) + '<small>' + nf(x.central) + ' un</small></td>' +
       '<td class="n"><input type="number" min="0" class="in sm" value="' + (c.cx != null && c.cx !== '' ? c.cx : '') + '" oninput="invSet(\'' + p.id + '\',\'cx\',this.value)"' + (upc(p) > 1 ? '' : ' disabled placeholder="—"') + '></td>' +
       '<td class="n"><input type="number" min="0" class="in sm" value="' + (c.un != null && c.un !== '' ? c.un : '') + '" oninput="invSet(\'' + p.id + '\',\'un\',this.value)"></td>' +
       '<td class="n" id="ivT' + p.id + '">' + invCell(p.id, 't') + '</td><td class="n" id="ivD' + p.id + '">' + invCell(p.id, 'd') + '</td><td class="n" id="ivV' + p.id + '">' + invCell(p.id, 'v') + '</td></tr>';
@@ -959,7 +962,7 @@ function produtoModal(p, cb) {
   S._pm = { base: p, cb: cb };
   var cats = cfgList('CATEGORIAS');
   var h = '<h3 style="font-size:18px">' + (p.id ? 'Editar produto' : 'Novo produto') + '</h3>' +
-    '<div class="fld mt"><label>Nome do produto (com volume)</label><input id="pmNome" class="in" value="' + esc(p.produto) + '" placeholder="Ex.: Vodka Absolut 1L"></div>' +
+    '<div class="fld mt"><label>Nome do produto</label><input id="pmNome" class="in" value="' + esc(p.produto) + '" placeholder="Ex.: Vodka Absolut"></div>' +
     '<div class="row mt"><div class="fld"><label>Categoria</label><select id="pmCat" class="in">' + opts(cats, p.categoria, 'Selecione…') + '</select></div>' +
     '<div class="fld"><label>Unidade</label><select id="pmUn" class="in">' + opts(UNIDADES, p.unidade || 'Garrafa') + '</select></div></div>' +
     '<div class="row mt"><div class="fld"><label>Volume unitário (ml)</label><input id="pmVol" type="number" class="in" value="' + esc(p.volume_ml) + '"></div>' +
@@ -975,8 +978,8 @@ function salvarProduto() {
   var b = S._pm.base, nome = $('pmNome').value.trim();
   if (!nome) { toast('Informe o nome do produto', true); return; }
   if (!$('pmCat').value) { toast('Escolha a categoria', true); return; }
-  var dup = S.db.produtos.filter(function (x) { return x.id !== b.id && normTxt(x.produto) === normTxt(nome); });
-  if (dup.length) { toast('Já existe um produto com esse nome', true); return; }
+  var dup = S.db.produtos.filter(function (x) { return x.id !== b.id && normTxt(x.produto) === normTxt(nome) && num(x.volume_ml) === num($('pmVol').value) && String(x.unidade) === $('pmUn').value; });
+  if (dup.length) { toast('Já existe um produto com esse nome, volume e unidade', true); return; }
   var p = { id: b.id || uid('P'), produto: nome, categoria: $('pmCat').value, unidade: $('pmUn').value, volume_ml: num($('pmVol').value), un_por_caixa: Math.max(1, num($('pmUpc').value) || 1), estoque_minimo: num($('pmMin').value), consignado: $('pmCons').value, fornecedor: $('pmForn').value.trim(), ativo: $('pmAtivo').value };
   var cb = S._pm.cb;
   busy();
