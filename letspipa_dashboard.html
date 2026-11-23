@@ -418,7 +418,7 @@ body {
         <tbody id="publico-tbody"><tr><td colspan="9" style="color:var(--text3)">Carregando...</td></tr></tbody>
       </table>
     </div>
-    <div style="font-size:11px;color:var(--text3);margin-top:10px;line-height:1.5">Pacote dá acesso a todas as noites; avulso conta só na noite comprada. Público único = pacotes + avulsos (quem comprou avulso de mais de uma noite conta uma vez por noite).</div>
+    <div style="font-size:11px;color:var(--text3);margin-top:10px;line-height:1.5">Pacote (inclusive Injoy) dá acesso a todas as noites; avulso conta só na noite comprada.</div>
   </div>
 
   <div class="grid3">
@@ -467,10 +467,10 @@ body {
 <!-- RECEITAS -->
 <div class="page" id="page-receitas">
   <div class="grid4">
-    <div class="kpi"><div class="kpi-label">Receita total orçada</div><div class="kpi-value" id="r-total">R$ 20,4M</div><span class="badge badge-green">5 fontes</span></div>
-    <div class="kpi"><div class="kpi-label">Receita pacotes orçada</div><div class="kpi-value" id="r-pacotes">R$ 12,6M</div><span class="badge badge-orange" id="r-pacotes-pct-badge">61,6% do total</span></div>
-    <div class="kpi"><div class="kpi-label">Receita pacotes realizada</div><div class="kpi-value" id="r-pacotes-real">R$ 0</div><span class="badge" id="r-pacotes-real-badge">Aguardando vendas</span></div>
-    <div class="kpi"><div class="kpi-label">Ticket médio atual</div><div class="kpi-value" id="r-tm-real">—</div><span class="badge" id="r-tm-real-badge">Das vendas realizadas</span></div>
+    <div class="kpi"><div class="kpi-label">Receita total atual</div><div class="kpi-value" id="rk-total">—</div><span class="badge badge-orange" id="rk-total-badge">—</span><div class="kpi-sub" id="rk-total-sub">Orçado —</div></div>
+    <div class="kpi"><div class="kpi-label">Receita pacotes atual</div><div class="kpi-value" id="rk-pac">—</div><span class="badge badge-orange" id="rk-pac-badge">—</span><div class="kpi-sub" id="rk-pac-sub">Orçado —</div></div>
+    <div class="kpi"><div class="kpi-label">Receita avulsos atual</div><div class="kpi-value" id="rk-av">—</div><span class="badge badge-orange" id="rk-av-badge">—</span><div class="kpi-sub" id="rk-av-sub">Orçado —</div></div>
+    <div class="kpi"><div class="kpi-label">Receita Injoy atual</div><div class="kpi-value" id="rk-inj">—</div><span class="badge badge-orange" id="rk-inj-badge">—</span><div class="kpi-sub" id="rk-inj-sub">Orçado —</div></div>
   </div>
   <div class="grid2b">
     <div class="card">
@@ -490,9 +490,9 @@ body {
     </div>
     <div class="card">
       <div class="card-title">Curva de vendas — pacotes acumulados</div>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:10px">Total de pacotes vendidos por dia · dados do Baladapp</div>
-      <div style="position:relative;width:100%;height:130px" id="chart-receita-wrap">
-        <svg style="width:100%;height:100%" id="chart-receita-svg" viewBox="0 0 260 110" preserveAspectRatio="none"></svg>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:10px">Pacotes Let's acumulados (sem Injoy) · dados do Baladapp · eixo de 15 em 15 dias</div>
+      <div style="position:relative;width:100%;height:250px" id="chart-receita-wrap">
+        <svg style="width:100%;height:100%" id="chart-receita-svg"></svg>
         <div class="chart-tooltip" id="chart-receita-tooltip">
           <div class="tt-date" id="rtt-date"></div>
           <div class="tt-row"><span class="tt-label">Vendas no dia</span><span class="tt-val" id="rtt-dia" style="color:var(--green)"></span></div>
@@ -501,7 +501,7 @@ body {
         </div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
-        <span style="color:var(--text3)">Meta: <strong style="color:var(--text)">2.800 pacotes</strong></span>
+        <span style="color:var(--text3)">Meta: <strong style="color:var(--text)" id="r-meta-lets">2.800 pacotes</strong> <span style="font-size:10px">(inclui Injoy)</span></span>
         <span id="r-receita-acum-label" style="color:var(--green);font-weight:600">—</span>
       </div>
       <div class="divider"></div>
@@ -740,9 +740,9 @@ body {
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
     <div class="card">
       <div class="card-title">Curva de vendas — 2025 real vs 2026 real + projeção</div>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:10px">Base sazonalidade histórica · meta 2.800 pacotes · abertura 13/Mai/26</div>
-      <div class="chart-wrap" id="chart-vendas-wrap">
-        <svg class="chart-svg" id="chart-vendas-svg" viewBox="0 0 560 160" preserveAspectRatio="none"></svg>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:10px">Pacotes Let's (sem Injoy) · eixo de 15 em 15 dias · projeção pela sazonalidade de 2025 · passe o mouse no gráfico</div>
+      <div class="chart-wrap" id="chart-vendas-wrap" style="height:280px">
+        <svg class="chart-svg" id="chart-vendas-svg"></svg>
         <div class="chart-tooltip" id="chart-tooltip">
           <div class="tt-date" id="tt-date"></div>
           <div class="tt-row"><span class="tt-label">Vendas no dia</span><span class="tt-val" id="tt-dia" style="color:var(--green)"></span></div>
@@ -1133,6 +1133,24 @@ function updateDashboard(dre, lotes, patros, custos, lineup, config) {
 
   updateComposicaoReal(dre, rTotalReal, rTotal, cTotalReal, cTotalOrc, resultReal, result, impReal);
 
+  // ── RECEITAS: 4 boxes com valores atuais ──
+  const injoyRow = findDRE('Injoy');
+  const lotesLets = lotesData.filter(function (r) { return String(r.lote || r.Lote || '').toUpperCase().indexOf('INJOY') < 0; });
+  const lotesInj = lotesData.filter(function (r) { return String(r.lote || r.Lote || '').toUpperCase().indexOf('INJOY') >= 0; });
+  const qLets = lotesLets.reduce(function (a, r) { return a + gf(r, 'vendidos_total'); }, 0);
+  const qInj = lotesInj.reduce(function (a, r) { return a + gf(r, 'vendidos_total'); }, 0);
+  const rkBox = function (id, real, orc, extra) {
+    setText(id, fmtM(real));
+    const b = document.getElementById(id + '-badge');
+    const pct = orc > 0 ? real / orc : 0;
+    if (b) { b.className = 'badge ' + (pct >= 1 ? 'badge-green' : 'badge-orange'); b.textContent = orc > 0 ? fmtPct(pct) + ' do orçado' : '—'; }
+    setText(id + '-sub', 'Orçado ' + fmtM(orc) + (extra ? ' · ' + extra : ''));
+  };
+  rkBox('rk-total', rTotalReal, rTotal, '');
+  rkBox('rk-pac', realOf(pacotesRow), orcOf(pacotesRow), qLets.toLocaleString('pt-BR') + ' pacotes' + (qLets > 0 ? ' · TM ' + fmtFull(realOf(pacotesRow) / qLets) : ''));
+  rkBox('rk-av', realOf(avulsosRow), orcOf(avulsosRow), '');
+  rkBox('rk-inj', realOf(injoyRow), orcOf(injoyRow), qInj.toLocaleString('pt-BR') + ' pacotes' + (qInj > 0 ? ' · TM ' + fmtFull(realOf(injoyRow) / qInj) : ''));
+
   LP_REAL = {
     rTotal: rTotalReal, rTotalOrc: rTotal, cTotal: cTotalReal, cTotalOrc: cTotalOrc,
     result: resultReal, resultOrc: result, margem: margemReal, margemOrc: margem, impostos: impReal,
@@ -1338,9 +1356,7 @@ function updatePublicoDia(lotes, avulsos, lineup, config) {
       '<td>' + (cap > 0 ? '<span class="occ" style="color:' + occCor + ';font-weight:600">' + fmtPct(occ) + '</span><span style="font-size:10px;color:var(--text3)"> de ' + fmtN(cap) + '</span>' : '—') + '</td></tr>';
   });
   const uT = pacT + avT, uM = (temGen ? pacM : 0) + avM, uF = (temGen ? pacF : 0) + avF;
-  tb.innerHTML = rows.join('') +
-    '<tr class="total-row"><td>Público único</td><td class="art">pacotes + todos os avulsos</td><td>' + fmtN(pacT) + '</td><td>' + fmtN(avT) + '</td><td>' + fmtN(uT) + '</td>' +
-    '<td>' + (temGen ? cel(uM, uM + uF, '#a78bfa') : '—') + '</td><td>' + (temGen ? cel(uF, uM + uF, '#f9a8d4') : '—') + '</td><td>' + (temGen ? gbar(uM, uF) : '—') + '</td><td></td></tr>';
+  tb.innerHTML = rows.join('');
 
   const resumo = [];
   if (maxNoite) resumo.push('Noite mais cheia: ' + pad(maxNoite.n.dm.d) + '/' + pad(maxNoite.n.dm.m) + ' (' + fmtN(maxNoite.tot) + ')');
@@ -1401,7 +1417,7 @@ function updateConfig(config, cUsado, rTotal, vendidosTotal, receitaRealTotal) {
   // Atualizar indicadores chave
   if (capacidade) setText('ind-capacidade', `${Number(capacidade).toLocaleString('pt-BR')} pax`);
   if (lotesAbertos !== null) setText('ind-lotes-abertos', `${lotesAbertos} de 6`);
-  if (aberturaVendas) setText('ind-abertura', String(aberturaVendas));
+  if (aberturaVendas) setText('ind-abertura', fmtDataCfg(aberturaVendas));
   if (metaPacotes) setText('ind-pac-vendidos', `${vendidosTotal.toLocaleString('pt-BR')} / ${Number(metaPacotes).toLocaleString('pt-BR')}`);
   if (metaPacotes) { setText('kpi-meta-pac', Number(metaPacotes).toLocaleString('pt-BR')); setText('hc-meta-pac', Number(metaPacotes).toLocaleString('pt-BR')); }
 
@@ -1417,6 +1433,7 @@ function updateConfig(config, cUsado, rTotal, vendidosTotal, receitaRealTotal) {
   const breakEvenFinal = Math.max(0, breakEvenCalc);
 
   setText('ind-breakeven', breakEvenFinal.toLocaleString('pt-BR') + ' pax');
+  setText('hc-be26', breakEvenFinal.toLocaleString('pt-BR') + ' pax' + (metaPacotes ? ' (' + Math.round(breakEvenFinal / Number(metaPacotes) * 100) + '% da meta)' : ''));
   setText('dre-breakeven', breakEvenFinal.toLocaleString('pt-BR') + ' pax');
   setText('ind-cpp', fmtFull(Math.round(cUsado / capNum)));
   setText('dre-cpp', fmtFull(Math.round(cUsado / capNum)));
@@ -1438,6 +1455,16 @@ function updateConfig(config, cUsado, rTotal, vendidosTotal, receitaRealTotal) {
       statusText.textContent = 'Atenção — revisar orçamento';
     }
   }
+}
+
+function fmtDataCfg(v) {
+  var MES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  var s = String(v).trim(), d = null, m;
+  if (/^\d{5}(\.\d+)?$/.test(s)) d = new Date(Date.UTC(1899, 11, 30) + Math.round(Number(s)) * 86400000);
+  else if ((m = s.match(/^Date\((\d+),(\d+),(\d+)/))) d = new Date(Date.UTC(+m[1], +m[2], +m[3]));
+  else if ((m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/))) d = new Date(Date.UTC(m[3].length === 2 ? 2000 + +m[3] : +m[3], +m[2] - 1, +m[1]));
+  if (!d || isNaN(d)) return s;
+  return ('0' + d.getUTCDate()).slice(-2) + '/' + MES[d.getUTCMonth()] + '/' + String(d.getUTCFullYear()).slice(-2);
 }
 
 function setBar(barId, valId, value, max, rawVal) {
@@ -1651,6 +1678,8 @@ function updateAvulsosTable(avulsos) {
         '<span style="color:var(--text3);font-size:11px"> / ' + fmtM(totalRecObj) + '</span></td>' +
     '</tr>';
 
+  const avSub = document.getElementById('rk-av-sub');
+  if (avSub && avSub.textContent.indexOf('ingressos') < 0 && totalVendidos > 0) avSub.textContent += ' · ' + totalVendidos.toLocaleString('pt-BR') + ' ingressos · TM ' + fmtFull(tmReal);
   // Indicador "Avulsos vendidos" da aba Macro
   setText('ind-av-vendidos', totalVendidos.toLocaleString('pt-BR') + ' / ' + totalMeta.toLocaleString('pt-BR'));
 }
@@ -1747,13 +1776,18 @@ function updateDRE(dre) {
         <td>${statusPill(status)}</td>
       </tr>`;
     } else if (tipo === 'Total' && desc.includes('Margem')) {
-      margem = orc;
-      html += `<tr style="background:rgba(74,222,128,0.06)">
-        <td style="font-weight:700;color:var(--green)">${desc}</td>
-        <td style="text-align:right;color:var(--green);font-weight:700">${fmtPctStr(pct) !== '<span style="color:var(--text3)">—</span>' ? pct : (rTotalOrc > 0 ? fmtPct(resultOrc/rTotalOrc) : '—')}</td>
-        <td colspan="3" style="color:var(--text3)"></td>
-        <td></td>
-      </tr>`;
+      const normPct = function (v, fb) { var n = Number(v); if (!n || isNaN(n)) return fb; return Math.abs(n) > 1 ? n / 100 : n; };
+      const mOrc = normPct(r.orcado, rTotalOrc > 0 ? resultOrc / rTotalOrc : 0);
+      const mReal = normPct(r.realizado, rTotalReal > 0 ? resultReal / rTotalReal : 0);
+      const dpp = (mReal - mOrc) * 100;
+      margem = mOrc;
+      html += '<tr style="background:rgba(74,222,128,0.06)">' +
+        '<td style="font-weight:700;color:var(--green)">' + desc + '</td>' +
+        '<td style="text-align:right;color:var(--green);font-weight:700">' + fmtPct(mOrc) + '</td>' +
+        '<td style="text-align:right;color:' + (mReal >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:700">' + fmtPct(mReal) + '</td>' +
+        '<td style="text-align:right;color:' + (dpp >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (dpp >= 0 ? '+' : '') + dpp.toFixed(1).replace('.', ',') + ' pp</td>' +
+        '<td></td><td>' + statusPill(status) + '</td>' +
+      '</tr>';
     } else if (tipo === 'Total' && desc.includes('Receita Líquida')) {
       html += `<tr class="total-row">
         <td style="font-weight:700">${desc}</td>
@@ -1984,6 +2018,7 @@ function goPage(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   btn.classList.add('active');
+  setTimeout(redrawCurvas, 30);
 }
 
 
@@ -2121,7 +2156,7 @@ function buildAIContext() {
     var l = String(x.lote || ''); if (!l || l.toUpperCase().indexOf('TOTAL') >= 0 || !gf(x, 'vendidos_total')) return;
     L.push('  - ' + l.trim() + ': ' + gf(x, 'vendidos_total') + ' vendidos de ' + gf(x, 'qtd_meta') + ' (meta) | receita R$ ' + Math.round(gf(x, 'receita_real')).toLocaleString('pt-BR'));
   });
-  if (C) L.push('- Ritmo (Lets, sem Injoy): ' + C.ultimo + ' acumulados ate ' + C.ultimaData + ' | ultimos 7 dias: ' + C.ult7 + ' | ultimos 30 dias: ' + C.ult30 + ' | 2025 no mesmo ponto do calendario: ' + C.ref25 + ' (' + (C.vs25 >= 0 ? '+' : '') + Math.round(C.vs25 * 100) + '%) | projecao de fechamento pela sazonalidade 2025: ~' + C.projTot + ' (faltam ' + C.falta + ' para a meta)');
+  if (C) L.push('- Ritmo (Lets, sem Injoy): ' + C.ultimo + ' acumulados ate ' + C.ultimaData + ' | ultimos 7 dias: ' + C.ult7 + ' | ultimos 30 dias: ' + C.ult30 + ' | 2025 no mesmo ponto do calendario: ' + C.ref25 + ' (' + (C.vs25 >= 0 ? '+' : '') + Math.round(C.vs25 * 100) + '%) | projecao de fechamento pela sazonalidade 2025: ~' + C.projTot + ' pacotes (' + C.projFinal + ' Lets + ' + C.parceiros + ' Injoy) | meta total ' + C.meta + ' pacotes, incluindo Injoy | faltam ' + C.falta + ' pacotes');
   L.push('- Abertura das vendas: 13/05/2026');
   L.push('');
   L.push('=== AVULSOS E PUBLICO POR NOITE ===');
@@ -2258,7 +2293,7 @@ function updateHistoricoReal() {
   setText('h-rec-2026', fmtM(R.rTotal));
   setText('h-rec-orc', 'Orçado ' + fmtM(R.rTotalOrc) + ' · ' + fmtPct(R.rTotalOrc ? R.rTotal / R.rTotalOrc : 0));
   var hrd = document.getElementById('h-rec-delta');
-  if (hrd) { var dR = (R.rTotal - 14900000) / 14900000; hrd.className = 'badge ' + (dR >= 0 ? 'badge-green' : 'badge-red'); hrd.style.background = ''; hrd.style.color = ''; hrd.textContent = (dR >= 0 ? '+' : '') + (dR * 100).toFixed(1).replace('.', ',') + '% vs 2025 (LP)'; }
+  if (hrd) { var dR = (R.rTotal - 16560000) / 16560000; hrd.className = 'badge ' + (dR >= 0 ? 'badge-green' : 'badge-red'); hrd.style.background = ''; hrd.style.color = ''; hrd.textContent = (dR >= 0 ? '+' : '') + (dR * 100).toFixed(1).replace('.', ',') + '% vs 2025 (LP)'; }
   setText('h-res-2026', fmtM(R.result));
   var hr = document.getElementById('h-res-2026'); if (hr) hr.style.color = R.result >= 0 ? 'var(--green)' : 'var(--red)';
   setText('h-margem-2026', 'Margem ' + fmtPct(R.margem));
@@ -2266,8 +2301,14 @@ function updateHistoricoReal() {
   setText('h-delta-yoy', sgn(R.result - HIST_2025.resultado_geral));
 
   // Tabela comparativa
-  var H25 = { 'Pacotes': 7060000, 'Avulsos': 2880000, 'Patrocínios': 2660000, "Let's Boat": 2410000 };
-  var NOME = { 'Avulsos': 'Avulsos / Club', "Let's Boat": "Let's Boat / Extras" };
+  // 2025 real por fonte. Quando a linha "Club" entrar na LK_DRE, preencher H25['Club'] e ajustar H25['Avulsos'].
+  var H25 = { 'Pacotes': 7060000, 'Avulsos': 2880000, 'Club': null, 'Injoy': 1550000, 'Patrocínios': 2660000, "Let's Boat": 2410000 };
+  var recDRE = dre.filter(function (x) { return String(x.categoria || '') === 'Receita' && String(x.tipo || '') === 'Receita'; });
+  var temClub = recDRE.some(function (x) { return String(x.descricao || '').toLowerCase().indexOf('club') >= 0; });
+  var NOME = { 'Avulsos': temClub ? 'Avulsos' : 'Avulsos / Club', "Let's Boat": "Let's Boat / Extras" };
+  var total25 = 0;
+  recDRE.forEach(function (x) { var d = String(x.descricao || ''); if (H25[d]) total25 += H25[d]; });
+  if (!total25) total25 = 14900000;
   var linha = function (label, v25, orc, real, tipo, cls) {
     var pctOrc = orc > 0 ? ' <span style="font-size:10px;color:var(--text3);font-weight:400">' + Math.round(real / orc * 100) + '%</span>' : '';
     var delta = '—', dcls = '';
@@ -2284,11 +2325,11 @@ function updateHistoricoReal() {
       '<div class="' + dcls + '">' + delta + '</div></div>';
   };
   var h = '<div class="comp-row sec"><div style="grid-column:1/-1">+ RECEITAS</div></div>';
-  dre.filter(function (x) { return String(x.categoria || '') === 'Receita' && String(x.tipo || '') === 'Receita'; }).forEach(function (x) {
+  recDRE.forEach(function (x) {
     var d = String(x.descricao || '');
     h += linha(NOME[d] || d, H25.hasOwnProperty(d) ? H25[d] : null, vo(x), vr(x), 'rec');
   });
-  h += linha('Total receitas', 14900000, R.rTotalOrc, R.rTotal, 'rec', ' tot');
+  h += linha('Total receitas', total25, R.rTotalOrc, R.rTotal, 'rec', ' tot');
   var imp = row('Total Impostos');
   if (imp) h += linha('(−) Impostos', null, vo(imp), vr(imp), 'cus');
   h += '<div class="comp-row sec" style="margin-top:6px"><div style="grid-column:1/-1">(−) CUSTOS</div></div>';
@@ -2302,10 +2343,12 @@ function updateHistoricoReal() {
     '<div style="color:var(--brand-light);font-weight:700">' + fmtM(R.resultOrc) + '</div>' +
     '<div style="color:' + (R.result >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:700">' + fmtM(R.result) + '</div>' +
     '<div class="' + (R.result > -1600000 ? 'delta-up' : 'delta-dn') + '" style="font-size:13px">' + (R.result > -1600000 ? '↑ ' : '↓ ') + fmtM(Math.abs(R.result + 1600000)) + '</div></div>';
-  h += '<div class="comp-row tot"><div style="color:var(--text2)">Margem líquida</div><div style="color:var(--red)">-10,7%</div><div style="color:var(--brand-light)">' + fmtPct(R.margemOrc) + '</div>' +
+  var m25 = -1600000 / total25;
+  h += '<div class="comp-row tot"><div style="color:var(--text2)">Margem líquida</div><div style="color:var(--red)">' + fmtPct(m25) + '</div><div style="color:var(--brand-light)">' + fmtPct(R.margemOrc) + '</div>' +
     '<div style="color:' + (R.margem >= 0 ? 'var(--green)' : 'var(--red)') + '">' + fmtPct(R.margem) + '</div>' +
-    '<div class="delta-up">' + ((R.margem + 0.107) * 100 >= 0 ? '+' : '') + ((R.margem + 0.107) * 100).toFixed(1).replace('.', ',') + 'pp</div></div>';
+    '<div class="delta-up">' + ((R.margem - m25) * 100 >= 0 ? '+' : '') + ((R.margem - m25) * 100).toFixed(1).replace('.', ',') + 'pp</div></div>';
   var body = document.getElementById('hc-body'); if (body) body.innerHTML = h;
+  if (hrd) { var dR2 = (R.rTotal - total25) / total25; hrd.className = 'badge ' + (dR2 >= 0 ? 'badge-green' : 'badge-red'); hrd.textContent = (dR2 >= 0 ? '+' : '') + (dR2 * 100).toFixed(1).replace('.', ',') + '% vs 2025 (LP)'; }
 
   // Cards
   var art = row('Artístico');
@@ -2322,7 +2365,7 @@ function updateHistoricoReal() {
   var faltaRec = Math.max(0, R.rTotalOrc - R.rTotal);
   var txt = 'Faltam <strong>' + falta.toLocaleString('pt-BR') + ' pacotes</strong> para a meta e <strong>' + fmtM(faltaRec) + '</strong> de receita para o orçado. ' +
     'Resultado atual <strong style="color:' + (R.result >= 0 ? 'var(--green)' : 'var(--red)') + '">' + fmtM(R.result) + '</strong> com ' + fmtPct(R.cTotalOrc ? R.cTotal / R.cTotalOrc : 0) + ' dos custos executados.';
-  if (LP_CURVA) txt += ' Projeção de fechamento: ~' + LP_CURVA.projTot.toLocaleString('pt-BR') + ' pacotes.';
+  if (LP_CURVA) txt += ' Projeção de fechamento: ~' + LP_CURVA.projTot.toLocaleString('pt-BR') + ' pacotes (com Injoy).';
   var al = document.getElementById('hc-alerta-txt'); if (al) al.innerHTML = txt;
 }
 
@@ -2370,222 +2413,206 @@ function updateHistorico(rTotal, cTotal, result, margem, vArtistico, vStaff, vIn
 // ============================================================
 // GRÁFICO CURVA DE VENDAS — dados reais LK_VENDAS_DIARIAS
 // ============================================================
+// Curva 2025 (Ingresse) em datas do calendário — acumulado no fim de cada mês
+function curva25Pts(ano) {
+  var M = [[3, 1, 0], [3, 30, 105], [4, 31, 414], [5, 30, 670], [6, 31, 764], [7, 31, 920], [8, 30, 1191], [9, 31, 1391], [10, 30, 1476], [11, 27, 1605]];
+  return M.map(function (x) { return { t: new Date(ano, x[0], x[1], 12).getTime(), v: x[2] }; });
+}
+function acum25At(ano, t) {
+  var P = curva25Pts(ano);
+  if (t <= P[0].t) return 0;
+  for (var i = 1; i < P.length; i++) if (t <= P[i].t) return P[i - 1].v + (P[i].v - P[i - 1].v) * (t - P[i - 1].t) / (P[i].t - P[i - 1].t);
+  return P[P.length - 1].v;
+}
+function metaLetsPac() {
+  var m = 0;
+  (LP_RAW.lotes || []).forEach(function (r) { var l = String(r.lote || '').toUpperCase(); if (l && l.indexOf('TOTAL') < 0 && l.indexOf('INJOY') < 0) m += gf(r, 'qtd_meta'); });
+  return m || 2500;
+}
+
 function buildSalesChartFromSheets(rows) {
   var dados = rows.filter(function(r){ return r.data && r.qtd_acumulado != null; }).map(function(r){
-    return { data: r.data, qtd_dia: Number(r.qtd_dia)||0, acumulado: Number(r.qtd_acumulado)||0, receita_acum: Number(r.receita_acumulada)||0 };
-  });
+    var d = String(r.data); var mm = d.match(/^Date\((\d+),(\d+),(\d+)/);
+    if (mm) d = mm[1] + '-' + ('0' + (Number(mm[2]) + 1)).slice(-2) + '-' + ('0' + mm[3]).slice(-2);
+    return { data: d, qtd_dia: Number(r.qtd_dia)||0, acumulado: Number(r.qtd_acumulado)||0, receita_acum: Number(r.receita_acumulada)||0 };
+  }).sort(function (x, y) { return x.data < y.data ? -1 : 1; });
   if (dados.length === 0) { buildSalesChart(); return; }
 
-  var svg = document.getElementById('chart-vendas-svg');
-  var tooltip = document.getElementById('chart-tooltip');
-  var wrap = document.getElementById('chart-vendas-wrap');
-  if (!svg) return;
-
-  var W=560, H=160, PL=38, PR=12, PT=14, PB=24;
-  var chartW=W-PL-PR, chartH=H-PT-PB, maxY=2800;
-  var meses=['Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-  var n=meses.length, xStep=chartW/(n-1);
-  function yOf(v){ return PT+chartH-Math.min(v,maxY)/maxY*chartH; }
-  function xOf(i){ return PL+i*xStep; }
-
-  var ABERTURA = new Date('2026-05-13');
-  function xOfDate(s){
-    var d=new Date(s+'T12:00:00');
-    var diff=(d-ABERTURA)/(1000*60*60*24);
-    return PL+(1+diff/30)*xStep;
-  }
-
-  var out = '<defs>'
-    +'<linearGradient id="g25s" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#60a5fa" stop-opacity="0.15"/><stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/></linearGradient>'
-    +'<linearGradient id="g26s" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ade80" stop-opacity="0.12"/><stop offset="100%" stop-color="#4ade80" stop-opacity="0"/></linearGradient>'
-    +'</defs>';
-
-  [700,1400,2100,2800].forEach(function(v){
-    var y=yOf(v);
-    out+='<line x1="'+PL+'" y1="'+y.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+y.toFixed(1)+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>';
-    out+='<text x="'+(PL-3)+'" y="'+(y+3).toFixed(1)+'" fill="rgba(255,255,255,0.18)" font-size="7" font-family="DM Mono" text-anchor="end">'+v+'</text>';
-  });
-  meses.forEach(function(m,i){
-    out+='<text x="'+xOf(i).toFixed(1)+'" y="'+(H-4).toFixed(1)+'" fill="rgba(255,255,255,0.22)" font-size="7" font-family="DM Mono" text-anchor="middle">'+m+'</text>';
-  });
-
-  var acum25=[105,414,670,764,920,1191,1391,1476,1605];
-  var pts25=acum25.map(function(v,i){ return {x:xOf(i),y:yOf(v)}; });
-  var area25='M'+pts25[0].x.toFixed(1)+','+yOf(0).toFixed(1)+' '+pts25.map(function(p){return 'L'+p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ')+' L'+pts25[n-1].x.toFixed(1)+','+yOf(0).toFixed(1)+' Z';
-  var line25='M'+pts25[0].x.toFixed(1)+','+pts25[0].y.toFixed(1)+' '+pts25.slice(1).map(function(p){return 'L'+p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ');
-  out+='<path d="'+area25+'" fill="url(#g25s)"/>';
-  out+='<path d="'+line25+'" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
-  pts25.forEach(function(p){ out+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="2.5" fill="#60a5fa" stroke="#1e1e1e" stroke-width="1"/>'; });
-  out+='<text x="'+(pts25[n-1].x-4).toFixed(1)+'" y="'+(pts25[n-1].y-7).toFixed(1)+'" fill="#60a5fa" font-size="7.5" font-family="DM Mono" font-weight="600" text-anchor="end">1.606</text>';
-
-  var pts26=dados.map(function(d){ return {x:xOfDate(d.data),y:yOf(d.acumulado),d:d}; });
-  if(pts26.length>1){
-    var area26='M'+pts26[0].x.toFixed(1)+','+yOf(0).toFixed(1)+' '+pts26.map(function(p){return 'L'+p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ')+' L'+pts26[pts26.length-1].x.toFixed(1)+','+yOf(0).toFixed(1)+' Z';
-    var line26='M'+pts26[0].x.toFixed(1)+','+pts26[0].y.toFixed(1)+' '+pts26.slice(1).map(function(p){return 'L'+p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ');
-    out+='<path d="'+area26+'" fill="url(#g26s)"/>';
-    out+='<path d="'+line26+'" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
-  }
-
-  var ultimoAcum=dados[dados.length-1].acumulado;
-  var lastD=new Date(dados[dados.length-1].data+'T12:00:00');
-  var idxHoje=1+((lastD-ABERTURA)/(1000*60*60*24))/30;
-  function acum25At(ix){ ix=Math.max(0,Math.min(n-1,ix)); var i0=Math.floor(ix), i1=Math.min(n-1,i0+1), f=ix-i0; return acum25[i0]+(acum25[i1]-acum25[i0])*f; }
-  var ref25=acum25At(idxHoje);
-  var fator=(ref25>0 && idxHoje<n-1)? acum25[n-1]/ref25 : 1;
-  var projFinal=Math.round(ultimoAcum*fator);
-  var xLast=pts26.length?pts26[pts26.length-1].x:xOf(1);
-  var ptsProj=[{x:xLast,y:yOf(ultimoAcum)},{x:Math.max(xLast,xOf(n-1)),y:yOf(projFinal)}];
-  var areaProj='M'+ptsProj[0].x.toFixed(1)+','+yOf(0).toFixed(1)+' '+ptsProj.map(function(p){return 'L'+p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ')+' L'+ptsProj[ptsProj.length-1].x.toFixed(1)+','+yOf(0).toFixed(1)+' Z';
-  var lineProj='M'+ptsProj[0].x.toFixed(1)+','+ptsProj[0].y.toFixed(1)+' '+ptsProj.slice(1).map(function(p){return 'L'+p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ');
-  out+='<path d="'+areaProj+'" fill="url(#g26s)"/>';
-  out+='<path d="'+lineProj+'" fill="none" stroke="#4ade80" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round"/>';
-  var lastProj=ptsProj[ptsProj.length-1];
-  if(lastProj.x-xLast>60) out+='<text x="'+(lastProj.x-4).toFixed(1)+'" y="'+(lastProj.y-7).toFixed(1)+'" fill="#4ade80" font-size="7.5" font-family="DM Mono" font-weight="600" text-anchor="end">~'+projFinal.toLocaleString('pt-BR')+'</text>';
-
-  var yMeta=yOf(2800);
-  out+='<line x1="'+PL+'" y1="'+yMeta.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+yMeta.toFixed(1)+'" stroke="rgba(201,75,37,0.4)" stroke-width="1" stroke-dasharray="3,3"/>';
-  out+='<text x="'+(W-PR-2).toFixed(1)+'" y="'+(yMeta-3).toFixed(1)+'" fill="rgba(201,75,37,0.7)" font-size="7" font-family="DM Mono" text-anchor="end">meta 2.800</text>';
-
-  var xAgora=pts26.length>0?pts26[pts26.length-1].x:xOf(1);
-  out+='<line x1="'+xAgora.toFixed(1)+'" y1="'+PT+'" x2="'+xAgora.toFixed(1)+'" y2="'+(PT+chartH).toFixed(1)+'" stroke="rgba(245,158,11,0.5)" stroke-width="1" stroke-dasharray="3,3"/>';
-  out+='<rect x="'+(xAgora-14).toFixed(1)+'" y="'+PT+'" width="28" height="11" rx="3" fill="rgba(245,158,11,0.2)"/>';
-  out+='<text x="'+xAgora.toFixed(1)+'" y="'+(PT+8).toFixed(1)+'" fill="#f59e0b" font-size="7" font-family="DM Sans" font-weight="600" text-anchor="middle">AGORA</text>';
-
-  if(pts26.length>0){
-    var last=pts26[pts26.length-1];
-    out+='<circle cx="'+last.x.toFixed(1)+'" cy="'+last.y.toFixed(1)+'" r="6" fill="rgba(74,222,128,0.2)" stroke="#4ade80" stroke-width="1.5"/>';
-    out+='<circle cx="'+last.x.toFixed(1)+'" cy="'+last.y.toFixed(1)+'" r="3" fill="#4ade80"/>';
-    out+='<text x="'+(last.x+8).toFixed(1)+'" y="'+(last.y-2).toFixed(1)+'" fill="#4ade80" font-size="8" font-family="DM Mono" font-weight="600">'+ultimoAcum.toLocaleString('pt-BR')+' ✓</text>';
-    out+='<text x="'+(last.x+8).toFixed(1)+'" y="'+(last.y+9).toFixed(1)+'" fill="rgba(74,222,128,0.6)" font-size="6.5" font-family="DM Mono">'+dados.length+' dias</text>';
-  }
-
-  pts26.forEach(function(p,i){
-    out+='<circle class="hover-pt" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="8" fill="transparent" data-idx="'+i+'"/>';
-  });
-
-  svg.innerHTML=out;
-
-  function fmtDataBR(s){ var d=new Date(s+'T12:00:00'); return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}); }
-  function fmtReal(v){ return 'R$ '+Math.round(v).toLocaleString('pt-BR'); }
-
-  svg.querySelectorAll('.hover-pt').forEach(function(el){
-    el.addEventListener('mouseenter',function(){
-      var idx=parseInt(el.getAttribute('data-idx'));
-      var d=dados[idx];
-      document.getElementById('tt-date').textContent=fmtDataBR(d.data);
-      document.getElementById('tt-dia').textContent='+'+d.qtd_dia.toLocaleString('pt-BR')+' pac';
-      document.getElementById('tt-acum').textContent=d.acumulado.toLocaleString('pt-BR')+' pac';
-      document.getElementById('tt-receita').textContent=fmtReal(d.receita_acum);
-      var svgRect=svg.getBoundingClientRect();
-      var px=parseFloat(el.getAttribute('cx'))*(svgRect.width/W);
-      var py=parseFloat(el.getAttribute('cy'))*(svgRect.height/H);
-      tooltip.style.left=Math.min(px+10,svgRect.width-180)+'px';
-      tooltip.style.top=Math.max(py-80,4)+'px';
-      tooltip.classList.add('visible');
-    });
-    el.addEventListener('mouseleave',function(){ tooltip.classList.remove('visible'); });
-  });
-
-  var diasVendas=dados.length;
-  var vs25=ref25>0?(ultimoAcum/ref25-1):0;
-  var metaPac=2800;
+  var DAY = 86400000;
+  var lastD = new Date(dados[dados.length-1].data + 'T12:00:00');
+  var ano = lastD.getFullYear();
+  var tEvento = new Date(ano, 11, 27, 12).getTime();
+  var ultimoAcum = dados[dados.length-1].acumulado;
+  var ref25 = acum25At(ano, lastD.getTime());
+  var fator = (ref25 > 0 && lastD.getTime() < tEvento) ? 1605 / ref25 : 1;
+  var projFinal = Math.round(ultimoAcum * fator);
+  var diasVendas = dados.length;
+  var vs25 = ref25 > 0 ? (ultimoAcum / ref25 - 1) : 0;
+  var metaPac = 2800;
   (LP_RAW.config||[]).forEach(function(r){ if(gfStr(r,'indicador')==='meta_pacotes') metaPac=Number(gfStr(r,'valor'))||metaPac; });
-  var vendidosTot=(LP_REAL&&LP_REAL.vendidos)?LP_REAL.vendidos:ultimoAcum;
-  var parceiros=Math.max(0,vendidosTot-ultimoAcum);
-  var projTot=projFinal+parceiros;
-  var falta=Math.max(0,metaPac-vendidosTot);
-  var ult7=0, ult30=0;
-  dados.forEach(function(d){ var dd=(lastD-new Date(d.data+'T12:00:00'))/(1000*60*60*24); if(dd<7) ult7+=d.qtd_dia; if(dd<30) ult30+=d.qtd_dia; });
-  var evento=new Date(lastD.getFullYear(),11,27);
-  var diasEvento=Math.max(0,Math.round((evento-new Date())/(1000*60*60*24)));
-  LP_CURVA={ultimo:ultimoAcum,ref25:Math.round(ref25),vs25:vs25,projFinal:projFinal,projTot:projTot,parceiros:parceiros,ult7:ult7,ult30:ult30,dias:diasVendas,diasEvento:diasEvento,meta:metaPac,falta:falta,ultimaData:dados[dados.length-1].data};
-  setText('curva-label','✓ '+ultimoAcum.toLocaleString('pt-BR')+' pac · '+diasVendas+' dias');
-  var insightEl=document.getElementById('insight-vendas-2026');
-  if(insightEl){
-    var okMeta=projTot>=metaPac;
-    var cor=okMeta?'var(--green)':'var(--amber)';
-    insightEl.style.background=okMeta?'rgba(74,222,128,0.06)':'rgba(245,158,11,0.06)';
-    insightEl.style.borderColor=okMeta?'rgba(74,222,128,0.15)':'rgba(245,158,11,0.2)';
-    insightEl.innerHTML='<div style="display:flex;align-items:flex-start;gap:10px">'
-      +'<div style="font-size:22px;flex-shrink:0">'+(okMeta?'\u{1F680}':'\u{1F4CA}')+'</div>'
-      +'<div><div style="font-size:12px;font-weight:700;color:'+cor+';margin-bottom:4px">Proje\u00e7\u00e3o de fechamento: ~'+projTot.toLocaleString('pt-BR')+' pacotes'+(okMeta?' \u2014 meta atingida':' \u2014 abaixo da meta de '+metaPac.toLocaleString('pt-BR'))+'</div>'
-      +'<div style="font-size:12px;color:var(--text2);line-height:1.6">Em <strong style="color:var(--text)">'+diasVendas+' dias</strong> vendeu <strong style="color:var(--green)">'+ultimoAcum.toLocaleString('pt-BR')+' pacotes</strong>'+(parceiros>0?' (+'+parceiros.toLocaleString('pt-BR')+' Injoy)':'')+' \u2014 <strong style="color:'+(vs25>=0?'var(--green)':'var(--red)')+'">'+(vs25>=0?'+':'')+Math.round(vs25*100)+'%</strong> vs 2025 no mesmo ponto do calend\u00e1rio ('+Math.round(ref25).toLocaleString('pt-BR')+'). \u00daltimos 7 dias: <strong style="color:var(--text)">'+ult7+'</strong> \u00b7 30 dias: <strong style="color:var(--text)">'+ult30+'</strong>. Aplicando o que 2025 ainda vendeu daqui at\u00e9 o evento, o fechamento fica em ~'+projTot.toLocaleString('pt-BR')+'.</div></div></div>'
-      +'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px">'
-      +'<div style="background:var(--surface2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--text3)">Atual (todos)</div><div style="font-size:16px;font-weight:700;color:var(--green)">'+vendidosTot.toLocaleString('pt-BR')+'</div></div>'
-      +'<div style="background:var(--surface2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--text3)">2025 mesmo ponto</div><div style="font-size:16px;font-weight:700;color:var(--blue)">'+Math.round(ref25).toLocaleString('pt-BR')+'</div></div>'
-      +'<div style="background:var(--surface2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--text3)">Proj. fechamento</div><div style="font-size:16px;font-weight:700;color:'+cor+'">~'+projTot.toLocaleString('pt-BR')+'</div></div>'
-      +'<div style="background:var(--surface2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--text3)">Faltam p/ meta</div><div style="font-size:16px;font-weight:700;color:var(--amber)">'+falta.toLocaleString('pt-BR')+'</div></div>'
-      +'</div>';
+  var vendidosTot = (LP_REAL && LP_REAL.vendidos) ? LP_REAL.vendidos : ultimoAcum;
+  var parceiros = Math.max(0, vendidosTot - ultimoAcum);
+  var projTot = projFinal + parceiros;
+  var metaLets = Math.max(0, metaPac - parceiros);   // meta 2.800 inclui Injoy: p/ comparar com a curva (sem Injoy) desconta a Injoy já vendida
+  var falta = Math.max(0, metaPac - vendidosTot);
+  var ult7 = 0, ult30 = 0;
+  dados.forEach(function(d){ var dd = (lastD - new Date(d.data + 'T12:00:00')) / DAY; if (dd < 7) ult7 += d.qtd_dia; if (dd < 30) ult30 += d.qtd_dia; });
+  var diasEvento = Math.max(0, Math.round((tEvento - Date.now()) / DAY));
+  LP_CURVA = { ultimo: ultimoAcum, ref25: Math.round(ref25), vs25: vs25, projFinal: projFinal, projTot: projTot, parceiros: parceiros, ult7: ult7, ult30: ult30, dias: diasVendas, diasEvento: diasEvento, meta: metaPac, metaLets: metaLets, falta: falta, ultimaData: dados[dados.length-1].data, dados: dados, ano: ano };
+
+  drawCurva({ svgId: 'chart-vendas-svg', ttId: 'chart-tooltip', wrapId: 'chart-vendas-wrap', show2025: true });
+  setText('curva-label', '✓ ' + ultimoAcum.toLocaleString('pt-BR') + ' pac · ' + diasVendas + ' dias');
+
+  var insightEl = document.getElementById('insight-vendas-2026');
+  if (insightEl) {
+    var okMeta = projTot >= metaPac;
+    var cor = okMeta ? 'var(--green)' : 'var(--amber)';
+    insightEl.style.background = okMeta ? 'rgba(74,222,128,0.06)' : 'rgba(245,158,11,0.06)';
+    insightEl.style.borderColor = okMeta ? 'rgba(74,222,128,0.15)' : 'rgba(245,158,11,0.2)';
+    insightEl.innerHTML = '<div style="display:flex;align-items:flex-start;gap:10px">'
+      + '<div style="font-size:22px;flex-shrink:0">' + (okMeta ? '\u{1F680}' : '\u{1F4CA}') + '</div>'
+      + '<div><div style="font-size:12px;font-weight:700;color:' + cor + ';margin-bottom:4px">Projeção de fechamento: ~' + projTot.toLocaleString('pt-BR') + ' pacotes' + (okMeta ? ' — meta atingida' : ' — abaixo da meta de ' + metaPac.toLocaleString('pt-BR')) + '</div>'
+      + '<div style="font-size:12px;color:var(--text2);line-height:1.6">Em <strong style="color:var(--text)">' + diasVendas + ' dias</strong> vendeu <strong style="color:var(--green)">' + ultimoAcum.toLocaleString('pt-BR') + ' pacotes</strong>' + (parceiros > 0 ? ' (+' + parceiros.toLocaleString('pt-BR') + ' Injoy)' : '') + ' — <strong style="color:' + (vs25 >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (vs25 >= 0 ? '+' : '') + Math.round(vs25 * 100) + '%</strong> vs 2025 na mesma data (' + Math.round(ref25).toLocaleString('pt-BR') + '). Últimos 7 dias: <strong style="color:var(--text)">' + ult7 + '</strong> · 30 dias: <strong style="color:var(--text)">' + ult30 + '</strong>. Se o ritmo daqui até o evento seguir o de 2025, o fechamento fica em ~' + projFinal.toLocaleString('pt-BR') + ' pacotes Let\'s' + (parceiros > 0 ? ' + ' + parceiros.toLocaleString('pt-BR') + ' Injoy' : '') + '.</div></div></div>'
+      + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px">'
+      + '<div style="background:var(--surface2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--text3)">Atual (com Injoy)</div><div style="font-size:16px;font-weight:700;color:var(--green)">' + vendidosTot.toLocaleString('pt-BR') + '</div>' + (parceiros > 0 ? '<div style="font-size:10px;color:var(--text3)">' + ultimoAcum.toLocaleString('pt-BR') + ' Let\'s + ' + parceiros + ' Injoy</div>' : '') + '</div>'
+      + '<div style="background:var(--surface2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--text3)">2025 mesma data</div><div style="font-size:16px;font-weight:700;color:var(--blue)">' + Math.round(ref25).toLocaleString('pt-BR') + '</div></div>'
+      + '<div style="background:var(--surface2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--text3)">Proj. fechamento</div><div style="font-size:16px;font-weight:700;color:' + cor + '">~' + projTot.toLocaleString('pt-BR') + '</div></div>'
+      + '<div style="background:var(--surface2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--text3)">Faltam p/ meta ' + metaPac.toLocaleString('pt-BR') + '</div><div style="font-size:16px;font-weight:700;color:var(--amber)">' + falta.toLocaleString('pt-BR') + '</div></div>'
+      + '</div>';
   }
   try { updateHistoricoReal(); } catch(eH) {}
 }
+
+// ─── Desenho da curva de vendas (pixel-exato, eixo de 15 em 15 dias, tooltip) ───
+var CURVA_CFG = {};
+function drawCurva(o) {
+  var C = LP_CURVA; if (!C || !C.dados || !C.dados.length) return;
+  var svg = document.getElementById(o.svgId), wrap = document.getElementById(o.wrapId), tt = document.getElementById(o.ttId);
+  if (!svg || !wrap) return;
+  CURVA_CFG[o.svgId] = o;
+  var W = wrap.clientWidth, H = wrap.clientHeight || 250;
+  if (W < 50) return; // aba escondida: redesenha ao abrir
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  svg.setAttribute('preserveAspectRatio', 'none');
+  var DAY = 86400000, ano = C.ano, dados = C.dados;
+  var PL = 44, PR = 16, PT = 18, PB = 28, cw = W - PL - PR, ch = H - PT - PB;
+  var t0 = new Date(ano, 4, 1, 12).getTime(), t1 = new Date(ano, 11, 27, 12).getTime();
+  var tD = function (s) { return new Date(s + 'T12:00:00').getTime(); };
+  var xT = function (t) { return PL + (t - t0) / (t1 - t0) * cw; };
+  var maxV = Math.max(C.metaLets, C.projFinal, C.ultimo, o.show2025 ? 1605 : 0) * 1.1;
+  var step = maxV > 2600 ? 500 : maxV > 1300 ? 250 : 100;
+  var yMax = Math.ceil(maxV / step) * step;
+  var yV = function (v) { return PT + ch - Math.min(v, yMax) / yMax * ch; };
+  var gid = 'g' + o.svgId.replace(/\W/g, '');
+  var f = function (n) { return n.toFixed(1); };
+  var out = '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ade80" stop-opacity="0.22"/><stop offset="100%" stop-color="#4ade80" stop-opacity="0"/></linearGradient></defs>';
+
+  // grade Y
+  for (var v = 0; v <= yMax; v += step) {
+    var y = yV(v);
+    out += '<line x1="' + PL + '" y1="' + f(y) + '" x2="' + (W - PR) + '" y2="' + f(y) + '" stroke="rgba(255,255,255,' + (v === 0 ? '0.12' : '0.05') + ')"/>';
+    out += '<text x="' + (PL - 8) + '" y="' + f(y + 4) + '" fill="rgba(255,255,255,0.35)" font-size="11" font-family="DM Mono" text-anchor="end">' + v.toLocaleString('pt-BR') + '</text>';
+  }
+  // eixo X de 15 em 15 dias a partir da abertura (13/05)
+  var lastX = -999;
+  for (var t = new Date(ano, 4, 13, 12).getTime(); t <= t1 + DAY; t += 15 * DAY) {
+    var x = xT(t); if (x - lastX < 33) continue; lastX = x;
+    var dt = new Date(t);
+    out += '<line x1="' + f(x) + '" y1="' + (PT + ch) + '" x2="' + f(x) + '" y2="' + (PT + ch + 4) + '" stroke="rgba(255,255,255,0.2)"/>';
+    out += '<line x1="' + f(x) + '" y1="' + PT + '" x2="' + f(x) + '" y2="' + (PT + ch) + '" stroke="rgba(255,255,255,0.025)"/>';
+    out += '<text x="' + f(x) + '" y="' + (H - 8) + '" fill="rgba(255,255,255,0.38)" font-size="10" font-family="DM Mono" text-anchor="middle">' + ('0' + dt.getDate()).slice(-2) + '/' + ('0' + (dt.getMonth() + 1)).slice(-2) + '</text>';
+  }
+  // evento
+  out += '<line x1="' + f(xT(t1)) + '" y1="' + PT + '" x2="' + f(xT(t1)) + '" y2="' + (PT + ch) + '" stroke="rgba(201,75,37,0.5)" stroke-dasharray="2,3"/>';
+  out += '<text x="' + f(xT(t1) - 4) + '" y="' + (PT + 10) + '" fill="rgba(232,104,58,0.9)" font-size="10" font-family="DM Sans" font-weight="600" text-anchor="end">evento 27/12</text>';
+  // meta Let's
+  var yM = yV(C.metaLets);
+  out += '<line x1="' + PL + '" y1="' + f(yM) + '" x2="' + (W - PR) + '" y2="' + f(yM) + '" stroke="rgba(201,75,37,0.55)" stroke-dasharray="5,4"/>';
+  out += '<text x="' + (PL + 6) + '" y="' + f(yM - 6) + '" fill="rgba(232,104,58,0.95)" font-size="10.5" font-family="DM Mono">meta ' + C.meta.toLocaleString('pt-BR') + (C.parceiros ? ' − ' + C.parceiros + ' Injoy = ' + C.metaLets.toLocaleString('pt-BR') + ' Let\'s' : '') + '</text>';
+  // 2025
+  if (o.show2025) {
+    var P = curva25Pts(ano).filter(function (p) { return p.t >= t0; });
+    P.unshift({ t: t0, v: acum25At(ano, t0) });
+    out += '<path d="M' + P.map(function (p) { return f(xT(p.t)) + ',' + f(yV(p.v)); }).join(' L') + '" fill="none" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.85" stroke-linejoin="round"/>';
+    P.slice(1).forEach(function (p) { out += '<circle cx="' + f(xT(p.t)) + '" cy="' + f(yV(p.v)) + '" r="2.6" fill="#60a5fa"/>'; });
+    var pe = P[P.length - 1];
+    out += '<text x="' + f(xT(pe.t) - 6) + '" y="' + f(yV(pe.v) + 15) + '" fill="#60a5fa" font-size="10.5" font-family="DM Mono" font-weight="600" text-anchor="end">2025: ' + pe.v.toLocaleString('pt-BR') + '</text>';
+  }
+  // 2026 real
+  var pts = dados.map(function (d) { return { x: xT(tD(d.data)), y: yV(d.acumulado) }; });
+  var line = 'M' + pts.map(function (p) { return f(p.x) + ',' + f(p.y); }).join(' L');
+  out += '<path d="' + line + ' L' + f(pts[pts.length - 1].x) + ',' + f(yV(0)) + ' L' + f(pts[0].x) + ',' + f(yV(0)) + ' Z" fill="url(#' + gid + ')"/>';
+  out += '<path d="' + line + '" fill="none" stroke="#4ade80" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>';
+  // projeção
+  var last = pts[pts.length - 1], tLast = tD(dados[dados.length - 1].data);
+  if (tLast < t1) {
+    var nP = 12, pp = [];
+    for (var k = 0; k <= nP; k++) { var tk = tLast + (t1 - tLast) * k / nP; var a25 = acum25At(ano, tk), r25 = acum25At(ano, tLast); pp.push({ x: xT(tk), y: yV(r25 > 0 ? C.ultimo * a25 / r25 : C.ultimo) }); }
+    out += '<path d="M' + pp.map(function (p) { return f(p.x) + ',' + f(p.y); }).join(' L') + '" fill="none" stroke="#4ade80" stroke-width="2" stroke-dasharray="5,4" stroke-opacity="0.8"/>';
+    var pe2 = pp[pp.length - 1];
+    out += '<circle cx="' + f(pe2.x) + '" cy="' + f(pe2.y) + '" r="3.5" fill="#1e1e1e" stroke="#4ade80" stroke-width="1.5"/>';
+    out += '<text x="' + f(pe2.x - 8) + '" y="' + f(pe2.y - 9) + '" fill="#4ade80" font-size="11" font-family="DM Mono" font-weight="600" text-anchor="end">proj. ~' + C.projFinal.toLocaleString('pt-BR') + '</text>';
+  }
+  // ponto atual
+  out += '<line x1="' + f(last.x) + '" y1="' + PT + '" x2="' + f(last.x) + '" y2="' + (PT + ch) + '" stroke="rgba(245,158,11,0.45)" stroke-dasharray="3,3"/>';
+  out += '<circle cx="' + f(last.x) + '" cy="' + f(last.y) + '" r="7" fill="rgba(74,222,128,0.18)" stroke="#4ade80" stroke-width="1.5"/><circle cx="' + f(last.x) + '" cy="' + f(last.y) + '" r="3.2" fill="#4ade80"/>';
+  var lblRight = last.x < W - 140;
+  out += '<text x="' + f(last.x + (lblRight ? 11 : -11)) + '" y="' + f(last.y + 22) + '" fill="#4ade80" font-size="12.5" font-family="DM Mono" font-weight="700" text-anchor="' + (lblRight ? 'start' : 'end') + '">' + C.ultimo.toLocaleString('pt-BR') + '</text>';
+  out += '<text x="' + f(last.x + (lblRight ? 11 : -11)) + '" y="' + f(last.y + 35) + '" fill="rgba(245,158,11,0.9)" font-size="10" font-family="DM Sans" font-weight="600" text-anchor="' + (lblRight ? 'start' : 'end') + '">hoje</text>';
+  // hover
+  out += '<line id="hl-' + o.svgId + '" x1="0" y1="' + PT + '" x2="0" y2="' + (PT + ch) + '" stroke="rgba(255,255,255,0.35)" stroke-width="1" style="display:none"/>';
+  out += '<circle id="hd-' + o.svgId + '" r="4.5" fill="#4ade80" stroke="#1e1e1e" stroke-width="1.5" style="display:none"/>';
+  out += '<rect id="hr-' + o.svgId + '" x="' + PL + '" y="' + PT + '" width="' + cw + '" height="' + ch + '" fill="transparent" style="cursor:crosshair"/>';
+  svg.innerHTML = out;
+
+  var hr = document.getElementById('hr-' + o.svgId), hl = document.getElementById('hl-' + o.svgId), hd = document.getElementById('hd-' + o.svgId);
+  var fmtDt = function (t) { return new Date(t).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }); };
+  var fmtR = function (v) { return 'R$ ' + Math.round(v).toLocaleString('pt-BR'); };
+  var move = function (ev) {
+    var rect = svg.getBoundingClientRect();
+    var cx = (ev.touches ? ev.touches[0].clientX : ev.clientX) - rect.left;
+    var t = t0 + (cx - PL) / cw * (t1 - t0);
+    var best = 0, bd = Infinity;
+    for (var i = 0; i < dados.length; i++) { var dd = Math.abs(tD(dados[i].data) - t); if (dd < bd) { bd = dd; best = i; } }
+    var d = dados[best], html, px, py;
+    if (t > tLast + DAY && tLast < t1) {
+      var tt2 = Math.min(t, t1), r25 = acum25At(ano, tLast), pv = r25 > 0 ? C.ultimo * acum25At(ano, tt2) / r25 : C.ultimo;
+      px = xT(tt2); py = yV(pv);
+      html = '<div class="tt-date">' + fmtDt(tt2) + ' · projeção</div><div class="tt-row"><span class="tt-label">Acumulado proj.</span><span class="tt-val" style="color:#4ade80">~' + Math.round(pv).toLocaleString('pt-BR') + ' pac</span></div>';
+      if (o.show2025) html += '<div class="tt-row"><span class="tt-label">2025 na data</span><span class="tt-val" style="color:#60a5fa">' + Math.round(acum25At(ano, tt2)).toLocaleString('pt-BR') + ' pac</span></div>';
+    } else {
+      px = xT(tD(d.data)); py = yV(d.acumulado);
+      html = '<div class="tt-date">' + fmtDt(tD(d.data)) + '</div>' +
+        '<div class="tt-row"><span class="tt-label">Vendas no dia</span><span class="tt-val" style="color:var(--green)">+' + d.qtd_dia.toLocaleString('pt-BR') + ' pac</span></div>' +
+        '<div class="tt-row"><span class="tt-label">Acumulado</span><span class="tt-val">' + d.acumulado.toLocaleString('pt-BR') + ' pac</span></div>' +
+        '<div class="tt-row"><span class="tt-label">Receita acum.</span><span class="tt-val" style="color:var(--amber)">' + fmtR(d.receita_acum) + '</span></div>';
+      if (o.show2025) { var a = acum25At(ano, tD(d.data)); html += '<div class="tt-row"><span class="tt-label">2025 na data</span><span class="tt-val" style="color:#60a5fa">' + Math.round(a).toLocaleString('pt-BR') + ' pac' + (a > 0 ? ' (' + (d.acumulado >= a ? '+' : '') + Math.round((d.acumulado / a - 1) * 100) + '%)' : '') + '</span></div>'; }
+    }
+    hl.setAttribute('x1', f(px)); hl.setAttribute('x2', f(px)); hl.style.display = '';
+    hd.setAttribute('cx', f(px)); hd.setAttribute('cy', f(py)); hd.style.display = '';
+    if (tt) {
+      tt.innerHTML = html;
+      var sx = rect.width / W, sy = rect.height / H;
+      tt.style.left = Math.max(4, Math.min(px * sx + 12, rect.width - 200)) + 'px';
+      tt.style.top = Math.max(4, py * sy - 90) + 'px';
+      tt.classList.add('visible');
+    }
+  };
+  var leave = function () { hl.style.display = 'none'; hd.style.display = 'none'; if (tt) tt.classList.remove('visible'); };
+  hr.addEventListener('mousemove', move); hr.addEventListener('touchstart', move, { passive: true }); hr.addEventListener('touchmove', move, { passive: true });
+  hr.addEventListener('mouseleave', leave);
+}
+function redrawCurvas() { Object.keys(CURVA_CFG).forEach(function (k) { drawCurva(CURVA_CFG[k]); }); }
+window.addEventListener('resize', function () { clearTimeout(window.__rcT); window.__rcT = setTimeout(redrawCurvas, 150); });
 
 // ============================================================
 // GRÁFICO CURVA DE VENDAS — aba Receitas (pacotes acumulados)
 // ============================================================
 function buildReceitaChart(dados) {
-  var svg=document.getElementById('chart-receita-svg');
-  var tooltip=document.getElementById('chart-receita-tooltip');
-  if(!svg||!dados||dados.length===0) return;
-  var W=260,H=110,PL=30,PR=8,PT=8,PB=18;
-  var chartW=W-PL-PR, chartH=H-PT-PB;
-  var maxAcum=Math.max.apply(null,dados.map(function(d){return Number(d.qtd_acumulado)||0;}));
-  var escala=maxAcum>0?maxAcum*1.1:2800;
-  function yOf(v){return PT+chartH-(v/escala)*chartH;}
-  function xOf(i){return PL+(dados.length>1?(i/(dados.length-1))*chartW:chartW/2);}
-  function fmtR(v){
-    if(v>=1e6) return 'R$ '+(v/1e6).toFixed(2).replace('.',',')+' M';
-    return 'R$ '+Math.round(v).toLocaleString('pt-BR');
-  }
-  var pts=dados.map(function(d,i){
-    return {x:xOf(i),y:yOf(Number(d.qtd_acumulado)||0),acumulado:Number(d.qtd_acumulado)||0,qtd_dia:Number(d.qtd_dia)||0,receita_acum:Number(d.receita_acumulada)||0,data:d.data};
-  });
-  var out='<defs><linearGradient id="gvc" x1="0" y1="0" x2="0" y2="1">'
-    +'<stop offset="0%" stop-color="#4ade80" stop-opacity="0.18"/>'
-    +'<stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>'
-    +'</linearGradient></defs>';
-  var nSteps=4;
-  for(var s=1;s<=nSteps;s++){
-    var v=Math.round(escala*s/nSteps);
-    var y=yOf(v);
-    out+='<line x1="'+PL+'" y1="'+y.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+y.toFixed(1)+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>';
-    out+='<text x="'+(PL-3)+'" y="'+(y+3).toFixed(1)+'" fill="rgba(255,255,255,0.2)" font-size="6" font-family="DM Mono" text-anchor="end">'+v+'</text>';
-  }
-  [0,Math.floor(dados.length/2),dados.length-1].forEach(function(i){
-    if(!dados[i]) return;
-    var d=new Date(dados[i].data+'T12:00:00');
-    out+='<text x="'+xOf(i).toFixed(1)+'" y="'+(H-2).toFixed(1)+'" fill="rgba(255,255,255,0.2)" font-size="6" font-family="DM Mono" text-anchor="middle">'+d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+'</text>';
-  });
-  var area='M'+pts[0].x.toFixed(1)+','+yOf(0).toFixed(1)+' '+pts.map(function(p){return 'L'+p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ')+' L'+pts[pts.length-1].x.toFixed(1)+','+yOf(0).toFixed(1)+' Z';
-  var line='M'+pts[0].x.toFixed(1)+','+pts[0].y.toFixed(1)+' '+pts.slice(1).map(function(p){return 'L'+p.x.toFixed(1)+','+p.y.toFixed(1);}).join(' ');
-  out+='<path d="'+area+'" fill="url(#gvc)"/>';
-  out+='<path d="'+line+'" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
-  var last=pts[pts.length-1];
-  out+='<circle cx="'+last.x.toFixed(1)+'" cy="'+last.y.toFixed(1)+'" r="4" fill="rgba(74,222,128,0.3)" stroke="#4ade80" stroke-width="1.5"/>';
-  out+='<circle cx="'+last.x.toFixed(1)+'" cy="'+last.y.toFixed(1)+'" r="2" fill="#4ade80"/>';
-  out+='<text x="'+(last.x-4).toFixed(1)+'" y="'+(last.y-7).toFixed(1)+'" fill="#4ade80" font-size="7.5" font-family="DM Mono" font-weight="600" text-anchor="end">'+last.acumulado.toLocaleString('pt-BR')+'</text>';
-  pts.forEach(function(p,i){
-    out+='<circle class="hover-pt-r" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="8" fill="transparent" data-idx="'+i+'"/>';
-  });
-  svg.innerHTML=out;
-  var labelEl=document.getElementById('r-receita-acum-label');
-  if(labelEl) labelEl.textContent=last.acumulado.toLocaleString('pt-BR')+' pacotes vendidos';
-  function fmtDataBR(s){return new Date(s+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});}
-  svg.querySelectorAll('.hover-pt-r').forEach(function(el){
-    el.addEventListener('mouseenter',function(){
-      var idx=parseInt(el.getAttribute('data-idx')); var p=pts[idx];
-      document.getElementById('rtt-date').textContent=fmtDataBR(p.data);
-      document.getElementById('rtt-dia').textContent='+'+p.qtd_dia.toLocaleString('pt-BR')+' pac';
-      document.getElementById('rtt-acum').textContent=p.acumulado.toLocaleString('pt-BR')+' pac';
-      document.getElementById('rtt-pac').textContent=fmtR(p.receita_acum);
-      var svgRect=svg.getBoundingClientRect();
-      var px=p.x*(svgRect.width/W); var py=p.y*(svgRect.height/H);
-      tooltip.style.left=Math.min(px+10,svgRect.width-180)+'px';
-      tooltip.style.top=Math.max(py-80,4)+'px';
-      tooltip.classList.add('visible');
-    });
-    el.addEventListener('mouseleave',function(){tooltip.classList.remove('visible');});
-  });
+  if (!LP_CURVA) return;
+  drawCurva({ svgId: 'chart-receita-svg', ttId: 'chart-receita-tooltip', wrapId: 'chart-receita-wrap', show2025: false });
+  setText('r-receita-acum-label', LP_CURVA.ultimo.toLocaleString('pt-BR') + ' pacotes vendidos');
+  setText('r-meta-lets', LP_CURVA.meta.toLocaleString('pt-BR') + ' pacotes');
 }
 
 // ============================================================
