@@ -2141,6 +2141,8 @@ function buildAIContext() {
   L.push('=== 2025 (FECHAMENTO REAL) ===');
   L.push('- Receita total: R$ 17,60M (Pacotes LP R$ 9,95M | Club avulsos R$ 1,69M | Patrocinios R$ 2,66M | Extras/Boat R$ 2,41M | We Are Lets R$ 0,89M)');
   L.push('- Custo total: R$ 17,49M (artistico R$ 5,96M; Black Coffee sozinho R$ 2,06M) | Resultado: -R$ 487K (LP+Club -R$ 1,60M, margem -10,7%)');
+  L.push('- Comparativo LP+Club 2025 por fonte: Pacotes R$ 7,06M | Injoy R$ 1,55M | Avulsos R$ 2,88M | Club R$ 1,69M | Patrocinios R$ 2,66M | Lets Boat R$ 112K | Rebate Baladapp R$ 409K | Extras R$ 266K (A&B 20% R$ 28K, Estacionamento R$ 20K, Lojinha Lets R$ 35K, Mesas Bistros R$ 88K, Baleiro R$ 25K, Cambista Lets R$ 69K)');
+  L.push('- Custos 2025 LP+Club: total R$ 16,50M | Artistico R$ 5,96M | Staff R$ 2,77M | Infra R$ 2,13M | Club R$ 1,82M | Lets Boat R$ 74K');
   L.push('- Ingresse 2025: 1.606 pacotes, TM R$ 4.635 | curva acumulada: Abr 105, Mai 414, Jun 670, Jul 764, Ago 920, Set 1.191, Out 1.391, Nov 1.476, Dez 1.605');
   L.push('- Avulsos 2025: 2.500 ingressos, R$ 3,02M | 75,7% do publico 18-34 anos | SP = 57% da receita');
   L.push('');
@@ -2305,42 +2307,95 @@ function updateHistoricoReal() {
   setText('h-delta-yoy', sgn(R.result - HIST_2025.resultado_geral));
 
   // Tabela comparativa
-  // 2025 real por fonte. Quando a linha "Club" entrar na LK_DRE, preencher H25['Club'] e ajustar H25['Avulsos'].
-  var H25 = { 'Pacotes': 7060000, 'Avulsos': 2880000, 'Club': null, 'Injoy': 1550000, 'Patrocínios': 2660000, "Let's Boat": 2410000 };
+  // ── 2025 real por fonte (Let's Pipa + Club) ──
+  // Cada linha procura a linha equivalente de 2026 na LK_DRE pelo nome (sem acento/maiúscula).
+  // Quando vocês criarem a linha na 💰 DRE (ex.: "Club", "Estacionamento"), o 2026 aparece sozinho.
+  var REC25 = [
+    ['Pacotes', 7060000, ['pacotes']],
+    ['Injoy', 1550000, ['injoy']],
+    ['Avulsos', 2880098.59, ['avulsos']],
+    ['Club', 1686837.53, ['club']],
+    ['Patrocínios', 2660000, ['patrocinios']],
+    ["Let's Boat", 112314, ['boat']],
+    ['Baladapp (rebate)', 408886.86, ['baladapp']]
+  ];
+  var EXT25 = [
+    ['A&B 20%', 28367, ['a&b 20', 'ab 20']],
+    ['Estacionamento', 20450, ['estacionamento']],
+    ["Lojinha Let's", 34700, ['lojinha']],
+    ['Mesas Bistrôs', 88002.98, ['mesas', 'bistro']],
+    ['Baleiro', 25000, ['baleiro']],
+    ["Cambista Let's", 69000, ['cambista']]
+  ];
+  var CUS25 = [
+    ['Artístico', 5960000, ['artistico']],
+    ['Staff + Equipe', 2770000, ['staff']],
+    ['Infraestrutura', 2130000, ['infraestrutura']],
+    ['Club', 1822473.18, ['club']],
+    ["Let's Boat", 73864.36, ['boat']]
+  ];
+  var CUSTO_TOTAL_25 = 16500000, RESULT_25 = -1600000;
+  var norm = function (t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
   var recDRE = dre.filter(function (x) { return String(x.categoria || '') === 'Receita' && String(x.tipo || '') === 'Receita'; });
-  var temClub = recDRE.some(function (x) { return String(x.descricao || '').toLowerCase().indexOf('club') >= 0; });
-  var NOME = { 'Avulsos': temClub ? 'Avulsos' : 'Avulsos / Club', "Let's Boat": "Let's Boat / Extras" };
+  var cusDRE = dre.filter(function (x) { return String(x.categoria || '') === 'Custo' && String(x.tipo || '') === 'Custo'; });
+  var usados = [];
+  var acha = function (lista, chaves) {
+    var x = lista.find(function (r) { if (usados.indexOf(r) >= 0) return false; var d = norm(r.descricao); return chaves.some(function (k) { return d.indexOf(k) >= 0; }); });
+    if (x) usados.push(x);
+    return x;
+  };
   var total25 = 0;
-  recDRE.forEach(function (x) { var d = String(x.descricao || ''); if (H25[d]) total25 += H25[d]; });
-  if (!total25) total25 = 14900000;
-  var linha = function (label, v25, orc, real, tipo, cls) {
+  REC25.forEach(function (r) { total25 += r[1] || 0; });
+  var ext25 = 0; EXT25.forEach(function (r) { ext25 += r[1]; });
+  total25 += ext25;
+
+  var linha = function (label, v25, orc, real, tipo, cls, sem26) {
     var pctOrc = orc > 0 ? ' <span style="font-size:10px;color:var(--text3);font-weight:400">' + Math.round(real / orc * 100) + '%</span>' : '';
     var delta = '—', dcls = '';
-    if (v25 !== null && v25 !== undefined && v25 !== 0) {
+    if (!sem26 && v25 !== null && v25 !== undefined && v25 !== 0) {
       var d = (real - v25) / Math.abs(v25);
       var bom = tipo === 'cus' ? d <= 0 : d >= 0;
       delta = (d >= 0 ? '+' : '') + Math.round(d * 100) + '%'; dcls = bom ? 'delta-up' : 'delta-dn';
     }
     var c25 = tipo === 'cus' ? 'var(--red)' : 'var(--blue)';
-    return '<div class="comp-row' + (cls || '') + '"><div style="color:' + (cls ? 'inherit' : 'var(--text2)') + '">' + label + '</div>' +
-      '<div style="color:' + c25 + '">' + (v25 === null ? '—' : fmtM(v25)) + '</div>' +
-      '<div style="color:var(--brand-light)">' + (orc ? fmtM(orc) : '—') + '</div>' +
-      '<div style="color:var(--teal);font-weight:600">' + fmtM(real) + pctOrc + '</div>' +
+    var sub = cls === ' sub';
+    return '<div class="comp-row' + (sub ? '' : (cls || '')) + '"' + (sub ? ' style="font-size:11.5px"' : '') + '><div style="color:' + (cls && !sub ? 'inherit' : 'var(--text2)') + (sub ? ';padding-left:14px;color:var(--text3)' : '') + '">' + (sub ? '↳ ' : '') + label + '</div>' +
+      '<div style="color:' + c25 + '">' + (v25 === null || v25 === undefined ? '—' : fmtM(v25)) + '</div>' +
+      '<div style="color:var(--brand-light)">' + (sem26 ? '—' : (orc ? fmtM(orc) : '—')) + '</div>' +
+      '<div style="color:var(--teal);font-weight:' + (sub ? '400' : '600') + '">' + (sem26 ? '<span style="color:var(--text3);font-weight:400">—</span>' : fmtM(real) + pctOrc) + '</div>' +
       '<div class="' + dcls + '">' + delta + '</div></div>';
   };
+
   var h = '<div class="comp-row sec"><div style="grid-column:1/-1">+ RECEITAS</div></div>';
-  recDRE.forEach(function (x) {
-    var d = String(x.descricao || '');
-    h += linha(NOME[d] || d, H25.hasOwnProperty(d) ? H25[d] : null, vo(x), vr(x), 'rec');
+  REC25.forEach(function (r) {
+    var x = acha(recDRE, r[2]);
+    if (!x && r[1] === null) return;
+    h += linha(r[0], r[1], vo(x), vr(x), 'rec', '', !x);
   });
+  // Extras: subtotal + itens
+  var extO = 0, extR = 0, extTem = false, extH = '';
+  EXT25.forEach(function (r) {
+    var x = acha(recDRE, r[2]);
+    if (x) { extTem = true; extO += vo(x); extR += vr(x); }
+    extH += linha(r[0], r[1], vo(x), vr(x), 'rec', ' sub', !x);
+  });
+  h += linha('Extras', ext25, extO, extR, 'rec', '', !extTem) + extH;
+  // linhas de receita da DRE que não estão no mapa acima
+  recDRE.forEach(function (x) { if (usados.indexOf(x) < 0) h += linha(String(x.descricao || ''), null, vo(x), vr(x), 'rec'); });
   h += linha('Total receitas', total25, R.rTotalOrc, R.rTotal, 'rec', ' tot');
   h += linha('(−) Impostos (ISS + PIS/COFINS)', null, R.impostosOrc || 0, R.impostos || 0, 'cus');
+
   h += '<div class="comp-row sec" style="margin-top:6px"><div style="grid-column:1/-1">(−) CUSTOS</div></div>';
-  var C25 = [['Artístico', 'Artístico', 5960000], ['Staff + Equipe', 'Staff + Equipe', 2770000], ['Infraestrutura', 'Infraestrutura', 2130000]];
-  var sO = 0, sR = 0;
-  C25.forEach(function (c) { var x = row(c[1]); sO += vo(x); sR += vr(x); h += linha(c[0], c[2], vo(x), vr(x), 'cus'); });
-  h += linha('Demais centros', 5640000, Math.max(0, R.cTotalOrc - sO), Math.max(0, R.cTotal - sR), 'cus');
-  h += linha('Total custos', 16500000, R.cTotalOrc, R.cTotal, 'cus', ' tot');
+  usados = [];
+  var sO = 0, sR = 0, s25 = 0;
+  CUS25.forEach(function (c) {
+    var x = acha(cusDRE, c[2]);
+    if (x) { sO += vo(x); sR += vr(x); }
+    s25 += c[1];
+    h += linha(c[0], c[1], vo(x), vr(x), 'cus', '', !x);
+  });
+  h += linha('Demais centros', CUSTO_TOTAL_25 - s25, Math.max(0, R.cTotalOrc - sO), Math.max(0, R.cTotal - sR), 'cus');
+  h += linha('Total custos', CUSTO_TOTAL_25, R.cTotalOrc, R.cTotal, 'cus', ' tot');
   var resCls = R.result >= 0 ? ' res-pos' : ' res-neg';
   h += '<div class="comp-row' + resCls + '" style="margin-top:6px"><div style="font-weight:700">Resultado LP+Club</div><div style="color:var(--red);font-weight:700">-R$ 1,60M</div>' +
     '<div style="color:var(--brand-light);font-weight:700">' + fmtM(R.resultOrc) + '</div>' +
