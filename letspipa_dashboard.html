@@ -1715,10 +1715,11 @@ function updateDRE(dre) {
     if (!v || v === '-' || v === '—') return '<span style="color:var(--text3)">—</span>';
     const n = Number(v);
     if (!isNaN(n) && n !== 0) {
-      // Se o valor for decimal (ex: 0.85), converte para porcentagem; se já for inteiro (ex: 85), usa direto
-      const pctVal = Math.abs(n) < 1 ? n * 100 : n;
+      // A planilha manda fração (0,85 = 85%; 1,22 = 122%). Só trata como já-percentual se vier >= 10.
+      const pctVal = Math.abs(n) < 10 ? n * 100 : n;
       return pctVal.toFixed(1).replace('.', ',') + '%';
     }
+    if (!isNaN(n) && n === 0) return '<span style="color:var(--text3)">—</span>';
     return String(v);
   };
 
