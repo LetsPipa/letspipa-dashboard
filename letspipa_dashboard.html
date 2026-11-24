@@ -1091,11 +1091,15 @@ function updateDashboard(dre, lotes, patros, custos, lineup, config) {
   const realOf = function (row) { return row ? parseVal(row.realizado != null ? row.realizado : row.Realizado) : 0; };
   const orcOf = function (row) { return row ? parseVal(row.orcado != null ? row.orcado : row.Orçado) : 0; };
   const rTotalReal = realOf(rTotalRow);
-  const cTotalReal = Math.abs(realOf(cTotalRow));
-  const cTotalOrc = Math.abs(orcOf(cTotalRow)) || cUsado;
+  // Custos: total da LK_CUSTOS (= aba Custos, inclui ECAD). A 💰 DRE tira o ECAD dos custos e põe em Impostos;
+  // aqui o ECAD fica nos custos e os impostos são derivados, então o resultado continua igual ao da DRE.
+  const custoRealLK = custos.filter(function (r) { return !String(r.custo_centro || '').toUpperCase().includes('TOTAL'); }).reduce(function (a, r) { return a + Math.abs(parseVal(r.custo_real)); }, 0);
+  const cTotalReal = custoRealLK || Math.abs(realOf(cTotalRow));
+  const cTotalOrc = custoTotal || Math.abs(orcOf(cTotalRow)) || cUsado;
   const resultReal = realOf(resultRow);
   const impRow = findDRE('Total Impostos');
-  const impReal = Math.abs(realOf(impRow));
+  const impReal = (custoRealLK && resultRow) ? Math.max(0, rTotalReal - cTotalReal - resultReal) : Math.abs(realOf(impRow));
+  const impOrc = (custoTotal && resultRow) ? Math.max(0, rTotal - cTotalOrc - result) : Math.abs(orcOf(impRow));
   let margemReal = margemRow ? realOf(margemRow) : 0;
   if (margemReal > 1) margemReal = margemReal / 100;
   if (!margemReal && rTotalReal > 0) margemReal = resultReal / rTotalReal;
@@ -1153,7 +1157,7 @@ function updateDashboard(dre, lotes, patros, custos, lineup, config) {
 
   LP_REAL = {
     rTotal: rTotalReal, rTotalOrc: rTotal, cTotal: cTotalReal, cTotalOrc: cTotalOrc,
-    result: resultReal, resultOrc: result, margem: margemReal, margemOrc: margem, impostos: impReal,
+    result: resultReal, resultOrc: result, margem: margemReal, margemOrc: margem, impostos: impReal, impostosOrc: impOrc,
     vendidos: vendidosTotal, receitaLotes: receitaRealLotes, tmReal: tmReal, tmOrc: tm,
     patroAberto: patros.filter(function (r) { return !String(r.patro_marca || '').toUpperCase().includes('TOTAL'); }).reduce(function (a, r) { return a + Math.max(0, parseVal(r.patro_saldo)); }, 0)
   };
@@ -2330,8 +2334,7 @@ function updateHistoricoReal() {
     h += linha(NOME[d] || d, H25.hasOwnProperty(d) ? H25[d] : null, vo(x), vr(x), 'rec');
   });
   h += linha('Total receitas', total25, R.rTotalOrc, R.rTotal, 'rec', ' tot');
-  var imp = row('Total Impostos');
-  if (imp) h += linha('(−) Impostos', null, vo(imp), vr(imp), 'cus');
+  h += linha('(−) Impostos (ISS + PIS/COFINS)', null, R.impostosOrc || 0, R.impostos || 0, 'cus');
   h += '<div class="comp-row sec" style="margin-top:6px"><div style="grid-column:1/-1">(−) CUSTOS</div></div>';
   var C25 = [['Artístico', 'Artístico', 5960000], ['Staff + Equipe', 'Staff + Equipe', 2770000], ['Infraestrutura', 'Infraestrutura', 2130000]];
   var sO = 0, sR = 0;
