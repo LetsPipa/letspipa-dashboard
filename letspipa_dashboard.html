@@ -1544,7 +1544,7 @@ function updateLotesTable(lotesData, qtdTotalMeta, receitaObjTotal, tm) {
     const recObj = gf(r,'receita_obj');
     const recReal = gf(r,'receita_real');
     const loteNome = gfStr(r,'lote','Lote');
-    const aber = gfStr(r,'abertura','Abertura');
+    const aber = fmtDataCfg(gfStr(r,'abertura','Abertura') || '');
     const cor = cores[i % cores.length];
 
     totalVendidos += qtdVendido;
@@ -1556,9 +1556,9 @@ function updateLotesTable(lotesData, qtdTotalMeta, receitaObjTotal, tm) {
 
     return `<tr>
       <td><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${cor};margin-right:6px;vertical-align:middle"></span>${loteNome}</td>
-      <td style="color:var(--text3);font-family:'DM Mono',monospace;font-size:11px">${aber}</td>
-      <td style="color:#a78bfa;font-weight:600">${fmtFull(pm)}</td>
-      <td style="color:#f9a8d4">${fmtFull(pf)}</td>
+      <td style="color:var(--text3);font-family:'DM Mono',monospace;font-size:11px;white-space:nowrap">${aber}</td>
+      <td style="color:#a78bfa;font-weight:600;white-space:nowrap">${fmtFull(pm)}</td>
+      <td style="color:#f9a8d4;white-space:nowrap">${fmtFull(pf)}</td>
       <td>
         <span style="${vendidoColor};font-weight:600">${qtdVendido.toLocaleString('pt-BR')}</span>
         <span style="color:var(--text3)"> / ${qtdMeta.toLocaleString('pt-BR')}</span>
